@@ -19,6 +19,21 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    rules: {
+      // Essential TypeScript rules
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+
+      // Code quality
+      "@typescript-eslint/prefer-const": "error",
+      "@typescript-eslint/no-inferrable-types": "error",
+
+      // Next.js specific enhancements
+      "@next/next/no-html-link-for-pages": "error",
+      "@next/next/no-img-element": "warn",
+    },
   },
 ];
 

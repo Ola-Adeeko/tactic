@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Provider } from "@/components/ui/provider";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import SideBar from "@/components/layout/SideBar";
+import { Box, Flex } from "@chakra-ui/react";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-plus-jakarta",
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -23,11 +24,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${plusJakarta.variable} `}>
+        <Provider>
+          <Box bg="primary" display="flex" h="100vh">
+            <SideBar />
+            <Flex as="main" direction="column" flex={1} overflow="hidden">
+              <Navbar />
+              <Box
+                as="main"
+                flex={1}
+                overflow="auto"
+                bg="secondary"
+                padding="30px 50px"
+                display="flex"
+              >
+                {children}
+              </Box>
+            </Flex>
+          </Box>
+        </Provider>
       </body>
     </html>
   );
