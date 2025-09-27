@@ -13,10 +13,20 @@ import {
 } from "@chakra-ui/react";
 import TodoCard from "./TodoCard";
 import { getStatusLabel, getStatusConfig } from "@/utils/statusUtils";
-import { TodoCardsProps } from "@/types/todo";
+import { TodoCardsProps, TodoItem, Status } from "@/types/todo";
 import { Add } from "iconsax-reactjs";
 
-const TodoCards = ({ items, activeTab }: TodoCardsProps) => {
+interface TodoCardsPropsWithHandlers extends TodoCardsProps {
+  onAddTask?: (status?: Status) => void;
+  onEditTask?: (task: TodoItem) => void;
+}
+
+const TodoCards = ({
+  items,
+  activeTab,
+  onAddTask,
+  onEditTask,
+}: TodoCardsPropsWithHandlers) => {
   const getStatusCount = (status: string) => {
     return items.filter((item) => item.status === status).length;
   };
@@ -87,6 +97,7 @@ const TodoCards = ({ items, activeTab }: TodoCardsProps) => {
                     size="30px"
                     bg="primary"
                     rounded="6px"
+                    onClick={() => onAddTask?.(status)}
                   >
                     <Icon fontWeight="medium" color="primaryText">
                       <Add size="20" />
@@ -104,17 +115,18 @@ const TodoCards = ({ items, activeTab }: TodoCardsProps) => {
                     dateRange={item.dateRange}
                     assignees={item.assignees}
                     priority={item.priority}
+                    onClick={() => onEditTask?.(item)}
                   />
                 ))}
 
                 <TodoCard
                   id="add"
                   name=""
-                  dateRange=""
+                  dateRange={[null, null]}
                   assignees={[]}
                   priority="medium"
                   isAddButton={true}
-                  onAddClick={() => console.log(`Add task to ${status}`)}
+                  onAddClick={() => onAddTask?.(status)}
                 />
               </VStack>
             </VStack>

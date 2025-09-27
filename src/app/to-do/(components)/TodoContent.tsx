@@ -5,9 +5,20 @@ import { Box, VStack } from "@chakra-ui/react";
 import TodoTable from "./TodoTable";
 import TodoCards from "./TodoCards";
 import TodoTabs from "./TodoTabs";
-import { TodoContentProps } from "@/types/todo";
+import { TodoContentProps, TodoItem, Status } from "@/types/todo";
 
-const TodoContent = ({ viewMode, activeTab, items }: TodoContentProps) => {
+interface TodoContentPropsWithHandlers extends TodoContentProps {
+  onAddTask?: (status?: Status) => void;
+  onEditTask?: (task: TodoItem) => void;
+}
+
+const TodoContent = ({
+  viewMode,
+  activeTab,
+  items,
+  onAddTask,
+  onEditTask,
+}: TodoContentPropsWithHandlers) => {
   const filteredItems = items.filter((item) => {
     switch (activeTab) {
       case "todo":
@@ -32,10 +43,19 @@ const TodoContent = ({ viewMode, activeTab, items }: TodoContentProps) => {
       {viewMode === "table" ? (
         <VStack flex={1} gap="10px" align="stretch">
           <TodoTabs counts={counts} />
-          <TodoTable items={filteredItems} activeTab={activeTab} />
+          <TodoTable
+            items={filteredItems}
+            activeTab={activeTab}
+            onEditTask={onEditTask}
+          />
         </VStack>
       ) : (
-        <TodoCards items={items} activeTab={activeTab} />
+        <TodoCards
+          items={items}
+          activeTab={activeTab}
+          onAddTask={onAddTask}
+          onEditTask={onEditTask}
+        />
       )}
     </Box>
   );

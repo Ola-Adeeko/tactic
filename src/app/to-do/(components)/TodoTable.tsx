@@ -1,14 +1,31 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Box, Table, IconButton, Text } from "@chakra-ui/react";
-import { More } from "iconsax-reactjs";
+import {
+  Box,
+  Table,
+  IconButton,
+  Text,
+  Menu,
+  HStack,
+  Icon,
+} from "@chakra-ui/react";
+import { More, Edit } from "iconsax-reactjs";
 import PriorityTag from "./PriorityTag";
 import AssigneeAvatars from "./AssigneeAvatars";
 import PaginationComponent from "./Pagination";
-import { TodoTableProps } from "@/types/todo";
+import { TodoTableProps, TodoItem } from "@/types/todo";
+import { formatDateRange } from "@/utils/dateUtils";
 
-const TodoTable = ({ items, activeTab }: TodoTableProps) => {
+interface TodoTablePropsWithHandlers extends TodoTableProps {
+  onEditTask?: (task: TodoItem) => void;
+}
+
+const TodoTable = ({
+  items,
+  activeTab,
+  onEditTask,
+}: TodoTablePropsWithHandlers) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -121,7 +138,7 @@ const TodoTable = ({ items, activeTab }: TodoTableProps) => {
                   borderColor="primaryBorder"
                 >
                   <Text color="primaryText" fontSize="14px" fontWeight="medium">
-                    {item.dateRange}
+                    {formatDateRange(item.dateRange)}
                   </Text>
                 </Table.Cell>
                 <Table.Cell
@@ -146,19 +163,51 @@ const TodoTable = ({ items, activeTab }: TodoTableProps) => {
                   borderBottom={isLastRow ? "none" : "1px solid"}
                   borderColor="primaryBorder"
                 >
-                  <IconButton
-                    aria-label="More actions"
-                    variant="ghost"
-                    size="sm"
-                    rounded="6spx"
-                    w="40px"
-                    h="30px"
-                    bg="secondary"
-                    color="primaryText"
-                    _hover={{ bg: "gray.100" }}
-                  >
-                    <More size="16" />
-                  </IconButton>
+                  <Menu.Root positioning={{ placement: "bottom-end" }}>
+                    <Menu.Trigger asChild>
+                      <IconButton
+                        aria-label="More actions"
+                        variant="ghost"
+                        size="sm"
+                        rounded="6px"
+                        w="40px"
+                        h="30px"
+                        bg="secondary"
+                        color="primaryText"
+                        _hover={{ bg: "gray.100" }}
+                      >
+                        <More size="16" />
+                      </IconButton>
+                    </Menu.Trigger>
+                    <Menu.Positioner>
+                      <Menu.Content
+                        bg="white"
+                        border="1px solid"
+                        borderColor="primaryBorder"
+                        rounded="8px"
+                        p="8px"
+                        shadow="none"
+                        minW="120px"
+                      >
+                        <Menu.Item
+                          value="edit"
+                          onClick={() => onEditTask?.(item)}
+                          _hover={{ bg: "gray.50" }}
+                          rounded="6px"
+                          p="8px"
+                        >
+                          <HStack gap="8px">
+                            <Icon color="primaryText">
+                              <Edit size="16" />
+                            </Icon>
+                            <Text fontSize="14px" color="primaryText">
+                              Edit
+                            </Text>
+                          </HStack>
+                        </Menu.Item>
+                      </Menu.Content>
+                    </Menu.Positioner>
+                  </Menu.Root>
                 </Table.Cell>
               </Table.Row>
             );

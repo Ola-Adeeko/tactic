@@ -9,10 +9,11 @@ export interface Assignee {
 export interface TodoItem {
   id: string;
   name: string;
-  dateRange: string;
+  dateRange: [Date | null, Date | null];
   assignees: Assignee[];
   priority: Priority;
   status: Status;
+  description?: string;
 }
 
 export interface TodoTabsProps {
@@ -26,11 +27,12 @@ export interface TodoTabsProps {
 export interface TodoCardProps {
   id: string;
   name: string;
-  dateRange: string;
+  dateRange: [Date | null, Date | null];
   assignees: Assignee[];
   priority: Priority;
   isAddButton?: boolean;
   onAddClick?: () => void;
+  onClick?: () => void;
 }
 
 export interface AssigneeAvatarsProps {
@@ -78,14 +80,16 @@ export interface TodoControlsProps {
 export interface TaskFormData {
   name: string;
   status: Status;
-  dateRange: string;
+  dateRange: [Date | null, Date | null];
   assignees: Assignee[];
-  priority: Priority;
+  priority: Priority | null;
   description: string;
 }
 
-export interface AddTaskModalProps {
+export interface ManageTaskProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (taskData: TaskFormData) => void;
+  editTask?: TodoItem | null;
+  defaultStatus?: Status;
 }

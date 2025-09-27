@@ -6,6 +6,7 @@ import { Calendar, ProfileCircle, Add } from "iconsax-reactjs";
 import AssigneeAvatars from "./AssigneeAvatars";
 import PriorityTag from "./PriorityTag";
 import { TodoCardProps } from "@/types/todo";
+import { formatDateRange } from "@/utils/dateUtils";
 
 const TodoCard = ({
   id,
@@ -15,6 +16,7 @@ const TodoCard = ({
   priority,
   isAddButton = false,
   onAddClick,
+  onClick,
 }: TodoCardProps) => {
   if (isAddButton) {
     return (
@@ -36,7 +38,15 @@ const TodoCard = ({
   }
 
   return (
-    <Box bg="white" p="14px" borderRadius="10px" position="relative">
+    <Box
+      bg="white"
+      p="14px"
+      borderRadius="10px"
+      position="relative"
+      cursor="pointer"
+      onClick={onClick}
+      _hover={{ bg: "gray.50" }}
+    >
       <VStack align="stretch" gap="10px">
         <Text
           fontWeight="semibold"
@@ -52,7 +62,7 @@ const TodoCard = ({
             <Calendar size="16" />
           </Icon>
           <Text color="primaryText" fontSize="14px" fontWeight="regular">
-            {dateRange}
+            {formatDateRange(dateRange)}
           </Text>
         </HStack>
 

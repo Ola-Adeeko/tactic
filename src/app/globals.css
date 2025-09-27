@@ -12,3 +12,70 @@ body {
   box-sizing: border-box;
   font-family: var(--font-plus-jakarta), sans-serif;
 }
+
+/* DatePicker Styles */
+.date-picker-wrapper {
+  width: 100%;
+  max-width: 250px;
+}
+
+.date-picker-input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--color-primaryText);
+  background: transparent;
+  padding: 0 12px;
+  outline: none;
+}
+
+.date-picker-input::placeholder {
+  color: #bac1cc;
+}
+
+.date-picker-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.date-picker-input.error {
+  border: 1px solid #e53e3e !important;
+}
+
+/* DatePicker Clear Icon Styles */
+.react-datepicker__close-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+  height: 100px;
+}
+
+/* Target the :after pseudo-element */
+.react-datepicker__close-icon::after {
+  content: "";
+  font-size: 16px !important;
+  font-weight: bold;
+  color: #666;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0px !important;
+  transform: translate(-50%, -50%);
+  transition: color 0.2s ease;
+  height: 20px !important;
+  width: 20px !important;
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.react-datepicker__close-icon:hover::after {
+  color: #333;
+}
