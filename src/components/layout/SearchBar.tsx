@@ -19,8 +19,9 @@ const SearchBar = () => {
           placeholder="Search..."
           border="1px solid"
           borderColor="primaryBorder"
-          w="220px"
+          w={{ base: "150px", lg: "220px" }}
           color="primaryText"
+          fontSize={{ base: "sm", lg: "md" }}
         />
       </InputGroup>
     </Box>

@@ -25,95 +25,76 @@ const SidebarNavList = ({ mainPath }: SidebarNavListProps) => {
     <Box flex={1} overflowY="auto" minH={0} pt={2}>
       <VStack gap={1} align="stretch">
         <SidebarItem
-          route="/home"
+          route="/"
           icon={<Category size="32" />}
           label="Home"
-          active={mainPath === "home"}
+          active={mainPath === "" || mainPath === "home"}
         />
+
         <SidebarItem
-          route="/vanbinnen"
+          route="#"
           icon={<Stickynote size="32" />}
           label="MKVanBinnen"
-          active={mainPath === "vanbinnen"}
+          active={false}
         />
         <SidebarItem
-          route="/document"
+          route="#"
           icon={<Folder2 size="32" />}
           label="Document Management"
-          active={mainPath === "document"}
+          active={false}
         />
         <SidebarItem
-          route="/patient"
+          route="#"
           icon={<People size="32" />}
           label="Patient Information"
-          active={mainPath === "patient"}
+          active={false}
         />
         <SidebarItem
-          route="/agenda"
+          route="#"
           icon={<Note1 size="32" />}
           label="Agenda"
-          active={mainPath === "agenda"}
+          active={false}
         />
         <SidebarItem
-          route="/department"
+          route="#"
           icon={<Buildings size="32" />}
           label="My Department"
-          active={mainPath === "department"}
+          active={false}
         />
-        <SidebarItem route="/news" label="News" active={mainPath === "news"} />
-        <SidebarItem
-          route="/members"
-          label="Members"
-          active={mainPath === "members"}
-        />
+        <SidebarItem route="#" label="News" active={false} />
+        <SidebarItem route="#" label="Members" active={false} />
         <SidebarItem
           route="/to-do"
           label="To - Do"
           active={mainPath === "to-do"}
         />
+        <SidebarItem route="#" label="Form Task" active={false} />
+        <SidebarItem route="#" label="Agenda" active={false} />
+        <SidebarItem route="#" label="Follow up system" active={false} />
+        <SidebarItem route="#" label="Group Settings" active={false} />
         <SidebarItem
-          route="/form-task"
-          label="Form Task"
-          active={mainPath === "form-task"}
-        />
-        <SidebarItem
-          route="/my-agenda"
-          label="Agenda"
-          active={mainPath === "my-agenda"}
-        />
-        <SidebarItem
-          route="/follow-up-system"
-          label="Follow up system"
-          active={mainPath === "follow-up-system"}
-        />
-        <SidebarItem
-          route="/group-settings"
-          label="Group Settings"
-          active={mainPath === "group-settings"}
-        />
-        <SidebarItem
-          route="/department"
+          route="#"
           icon={<Call size="32" />}
           label="Phone Numbers"
-          active={mainPath === "department"}
+          active={false}
         />
         <SidebarItem
-          route="/department"
+          route="#"
           icon={<TaskSquare size="32" />}
           label="My To-do Protocols"
-          active={mainPath === "department"}
+          active={false}
         />
         <SidebarItem
-          route="/department"
+          route="#"
           icon={<Notification size="32" />}
           label="My Notifications"
-          active={mainPath === "department"}
+          active={false}
         />
         <SidebarItem
-          route="/department"
+          route="#"
           icon={<MenuBoard size="32" />}
           label="Knowledge Base"
-          active={mainPath === "department"}
+          active={false}
         />
       </VStack>
     </Box>

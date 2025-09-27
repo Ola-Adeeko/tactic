@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { Box, VStack } from "@chakra-ui/react";
-import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Status, TodoItem, TaskFormData, Priority } from "@/types/todo";
 import Header from "./(components)/Header";
 import TodoControls from "./(components)/TodoControls";
 import TodoContent from "./(components)/TodoContent";
 import ManageTask from "./(components)/ManageTask";
+import TableSkeleton from "./(components)/TableSkeleton";
+import CardsSkeleton from "./(components)/CardsSkeleton";
 import Assignee1 from "@/assets/images/user1.png";
 import Assignee2 from "@/assets/images/user2.png";
 import Assignee3 from "@/assets/images/user3.png";
@@ -91,29 +93,41 @@ const mockTodoItems: TodoItem[] = [
 ];
 
 const layout = () => {
-  const [viewMode, setViewMode] = useState<"table" | "cards">("table");
   const [searchQuery, setSearchQuery] = useState("");
   const [isManageTaskOpen, setIsManageTaskOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<TodoItem | null>(null);
   const [defaultStatus, setDefaultStatus] = useState<Status>("todo");
   const [todoItems, setTodoItems] = useState<TodoItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const searchParams = useSearchParams();
-  const activeTab = (searchParams.get("tab") as Status) || "todo";
+  const [activeTab, setActiveTab] = useState<Status>("todo");
+  const [viewMode, setViewMode] = useState<"table" | "cards">("cards");
+  const pathname = usePathname();
 
-  // Load todos from localStorage on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get("tab") as Status;
+      const view = urlParams.get("view") as "table" | "cards";
+
+      if (tab && ["todo", "in-progress", "completed"].includes(tab)) {
+        setActiveTab(tab);
+      }
+      if (view && ["table", "cards"].includes(view)) {
+        setViewMode(view);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const savedTodos = loadTodosFromStorage();
     if (savedTodos.length > 0) {
       setTodoItems(savedTodos);
     } else {
-      // Use mock data only if no saved todos exist
       setTodoItems(mockTodoItems);
     }
     setIsLoaded(true);
   }, []);
 
-  // Save todos to localStorage whenever todoItems change
   useEffect(() => {
     if (isLoaded) {
       saveTodosToStorage(todoItems);
@@ -122,6 +136,23 @@ const layout = () => {
 
   const handleViewChange = (mode: "table" | "cards") => {
     setViewMode(mode);
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("view", mode);
+      const newUrl = `${pathname}?${urlParams.toString()}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+  };
+
+  const handleTabChange = (tab: Status) => {
+    setActiveTab(tab);
+    // Update URL without causing SSR issues
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("tab", tab);
+      const newUrl = `${pathname}?${urlParams.toString()}`;
+      window.history.replaceState({}, "", newUrl);
+    }
   };
 
   const handleSearch = (value: string) => {
@@ -141,7 +172,6 @@ const layout = () => {
 
   const handleTaskSubmit = (taskData: TaskFormData) => {
     if (editingTask) {
-      // Update existing task
       setTodoItems((prev) =>
         prev.map((task) =>
           task.id === editingTask.id
@@ -158,7 +188,6 @@ const layout = () => {
         )
       );
     } else {
-      // Create new task
       const newTask: TodoItem = {
         id: Date.now().toString(),
         name: taskData.name,
@@ -179,14 +208,15 @@ const layout = () => {
   return (
     <Box
       bg="primary"
-      rounded="10px "
+      rounded={{ base: "0", lg: "10px" }}
       flex={1}
       h="fit-content"
       display="flex"
       flexDirection="column"
+      w="full"
     >
       <Header onAddTaskClick={handleAddTask} />
-      <Box padding="20px" flex={1}>
+      <Box padding={{ base: "16px", lg: "20px" }} flex={1}>
         <TodoControls
           viewMode={viewMode}
           onViewChange={handleViewChange}
@@ -194,14 +224,23 @@ const layout = () => {
           searchPlaceholder="Search for To-Do"
         />
 
-        <VStack flex={1} mt="10px" align="stretch">
-          <TodoContent
-            viewMode={viewMode}
-            activeTab={activeTab}
-            items={filteredItems}
-            onAddTask={handleAddTask}
-            onEditTask={handleEditTask}
-          />
+        <VStack flex={1} mt={{ base: "8px", lg: "10px" }} align="stretch">
+          {!isLoaded ? (
+            viewMode === "cards" ? (
+              <CardsSkeleton />
+            ) : (
+              <TableSkeleton />
+            )
+          ) : (
+            <TodoContent
+              viewMode={viewMode}
+              activeTab={activeTab}
+              items={filteredItems}
+              onAddTask={handleAddTask}
+              onEditTask={handleEditTask}
+              onTabChange={handleTabChange}
+            />
+          )}
         </VStack>
       </Box>
 

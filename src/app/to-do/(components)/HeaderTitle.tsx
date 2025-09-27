@@ -32,7 +32,11 @@ const HeaderTitle = ({
         </Circle>
       )}
 
-      <Text fontSize="30px" fontWeight="bold" color="primaryText">
+      <Text
+        fontSize={{ base: "20px", lg: "30px" }}
+        fontWeight="bold"
+        color="primaryText"
+      >
         {title}
       </Text>
     </HStack>

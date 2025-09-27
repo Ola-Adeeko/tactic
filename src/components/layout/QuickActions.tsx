@@ -8,19 +8,21 @@ const QuickActions = () => {
     <HStack
       bg="secondary"
       rounded="10px"
-      padding="4px"
-      h="46px"
+      padding={{ base: "2px", lg: "4px" }}
+      h={{ base: "36px", lg: "46px" }}
       border="1px solid"
       borderColor="secondaryBorder"
+      gap={{ base: "2px", lg: "4px" }}
     >
       <Button
         bg="indigoPrimaryColor"
         color="white"
         rounded="10px"
-        px="10px"
-        textStyle="sm"
-        h="38px"
+        px={{ base: "6px", lg: "10px" }}
+        textStyle={{ base: "xs", lg: "sm" }}
+        h={{ base: "32px", lg: "38px" }}
         fontWeight="bold"
+        fontSize={{ base: "xs", lg: "sm" }}
       >
         Melding Maken
       </Button>
@@ -28,10 +30,11 @@ const QuickActions = () => {
         bg="aquaPrimaryColor"
         color="white"
         rounded="10px"
-        px="10px"
-        textStyle="sm"
-        h="38px"
+        px={{ base: "6px", lg: "10px" }}
+        textStyle={{ base: "xs", lg: "sm" }}
+        h={{ base: "32px", lg: "38px" }}
         fontWeight="bold"
+        fontSize={{ base: "xs", lg: "sm" }}
       >
         VIM
       </Button>
@@ -39,10 +42,11 @@ const QuickActions = () => {
         bg="aquaPrimaryColor"
         color="white"
         rounded="10px"
-        px="10px"
-        textStyle="sm"
-        h="38px"
+        px={{ base: "6px", lg: "10px" }}
+        textStyle={{ base: "xs", lg: "sm" }}
+        h={{ base: "32px", lg: "38px" }}
         fontWeight="bold"
+        fontSize={{ base: "xs", lg: "sm" }}
       >
         LMS
       </Button>
@@ -50,10 +54,11 @@ const QuickActions = () => {
         bg="aquaPrimaryColor"
         color="white"
         rounded="10px"
-        px="10px"
-        textStyle="sm"
-        h="38px"
+        px={{ base: "6px", lg: "10px" }}
+        textStyle={{ base: "xs", lg: "sm" }}
+        h={{ base: "32px", lg: "38px" }}
         fontWeight="bold"
+        fontSize={{ base: "xs", lg: "sm" }}
       >
         BHV
       </Button>
@@ -61,10 +66,11 @@ const QuickActions = () => {
         bg="aquaPrimaryColor"
         color="white"
         rounded="10px"
-        px="10px"
-        textStyle="sm"
-        h="38px"
+        px={{ base: "6px", lg: "10px" }}
+        textStyle={{ base: "xs", lg: "sm" }}
+        h={{ base: "32px", lg: "38px" }}
         fontWeight="bold"
+        fontSize={{ base: "xs", lg: "sm" }}
       >
         Datalek
       </Button>

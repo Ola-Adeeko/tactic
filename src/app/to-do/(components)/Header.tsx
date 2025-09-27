@@ -30,9 +30,12 @@ const Header = ({
     <Box
       display="flex"
       justifyContent="space-between"
-      padding="20px"
+      alignItems={{ base: "flex-start", lg: "center" }}
+      padding={{ base: "16px", lg: "20px" }}
       borderBottom="1px solid"
       borderColor="primaryBorder"
+      flexDirection={{ base: "column", lg: "row" }}
+      gap={{ base: 3, lg: 0 }}
     >
       <HeaderTitle
         title={title}

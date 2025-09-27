@@ -10,23 +10,25 @@ import UserMenu from "./UserMenu";
 const Navbar = () => {
   return (
     <Box
-      padding="10px 50px"
+      padding={{ base: "10px 16px", lg: "10px 50px" }}
       display="flex"
       alignItems="center"
       justifyContent="space-between"
       bg="primary"
       borderBottom="1px solid"
       borderColor="primaryBorder"
-      h="90px"
+      minH={{ base: "120px", lg: "90px" }}
+      flexWrap="wrap"
+      gap={{ base: 2, lg: 0 }}
     >
       <SearchBar />
       <NavIcons />
-      <HStack wrap="wrap" gap="10px">
+      <HStack wrap="wrap" gap={{ base: "4px", lg: "10px" }}>
         <QuickActions />
         <LinkButton />
       </HStack>
 
-      <HStack>
+      <HStack gap={{ base: "6px", lg: "10px" }}>
         <NotificationBell />
         <UserMenu />
       </HStack>

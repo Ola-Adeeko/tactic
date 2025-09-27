@@ -7,8 +7,8 @@ import { Link1 } from "iconsax-reactjs";
 const LinkButton = () => {
   return (
     <Box
-      h="46px"
-      w="40px"
+      h={{ base: "36px", lg: "46px" }}
+      w={{ base: "32px", lg: "40px" }}
       bg="secondary"
       color="primaryText"
       border="1px solid"
@@ -19,7 +19,7 @@ const LinkButton = () => {
       justifyContent="center"
       cursor="pointer"
     >
-      <Link1 size="24" />
+      <Link1 size="20" />
     </Box>
   );
 };

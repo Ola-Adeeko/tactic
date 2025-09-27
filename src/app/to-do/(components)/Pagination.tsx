@@ -39,7 +39,6 @@ const PaginationComponent = ({
   showItemsPerPage = true,
   itemsPerPageOptions = [5, 10, 20, 50],
 }: PaginationProps) => {
-  // Create collection for select options
   const itemsPerPageCollection = createListCollection({
     items: itemsPerPageOptions.map((option) => ({
       label: option.toString(),

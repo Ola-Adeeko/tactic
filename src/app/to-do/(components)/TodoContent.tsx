@@ -10,6 +10,7 @@ import { TodoContentProps, TodoItem, Status } from "@/types/todo";
 interface TodoContentPropsWithHandlers extends TodoContentProps {
   onAddTask?: (status?: Status) => void;
   onEditTask?: (task: TodoItem) => void;
+  onTabChange?: (tab: Status) => void;
 }
 
 const TodoContent = ({
@@ -18,6 +19,7 @@ const TodoContent = ({
   items,
   onAddTask,
   onEditTask,
+  onTabChange,
 }: TodoContentPropsWithHandlers) => {
   const filteredItems = items.filter((item) => {
     switch (activeTab) {
@@ -42,7 +44,11 @@ const TodoContent = ({
     <Box flex={1} overflow="auto">
       {viewMode === "table" ? (
         <VStack flex={1} gap="10px" align="stretch">
-          <TodoTabs counts={counts} />
+          <TodoTabs
+            counts={counts}
+            activeTab={activeTab}
+            onTabChange={onTabChange}
+          />
           <TodoTable
             items={filteredItems}
             activeTab={activeTab}

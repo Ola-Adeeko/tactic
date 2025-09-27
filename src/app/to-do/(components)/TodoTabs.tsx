@@ -2,21 +2,16 @@
 
 import React from "react";
 import { Box, HStack, Text } from "@chakra-ui/react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { TaskSquare, Status as StatusIcon, TickCircle } from "iconsax-reactjs";
 import { TodoTabsProps, Status } from "@/types/todo";
 
 const TodoTabs = ({
   counts = { todo: 0, inProgress: 0, completed: 0 },
+  activeTab,
+  onTabChange,
 }: TodoTabsProps) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const activeTab = (searchParams.get("tab") as Status) || "todo";
-
   const handleTabChange = (tab: Status) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("tab", tab);
-    router.push(`?${params.toString()}`);
+    onTabChange?.(tab);
   };
 
   const getTabConfig = (tabKey: Status) => {

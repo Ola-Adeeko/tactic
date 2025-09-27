@@ -90,7 +90,6 @@ const customConfig = {
         priorityLow: {
           value: "#BAC1CC",
         },
-        // Pagination colors
         paginationActive: {
           value: "#75C5C1",
         },

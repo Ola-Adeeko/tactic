@@ -4,7 +4,7 @@ import React from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Logo from "@/assets/images/logo.png";
+import Logo from "@/assets/icons/Logo.svg";
 
 const SidebarLogo = () => {
   const router = useRouter();

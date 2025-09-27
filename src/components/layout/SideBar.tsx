@@ -16,11 +16,12 @@ const SideBar = () => {
       as="aside"
       bg="primary"
       h="100vh"
-      w="250px"
+      w={{ base: "200px", lg: "250px" }}
       direction="column"
       borderRight="1px solid"
       borderColor="primaryBorder"
-      padding="10px 20px 30px 20px"
+      padding={{ base: "8px 12px 20px 12px", lg: "10px 20px 30px 20px" }}
+      flexShrink={0}
     >
       <SidebarLogo />
       <SidebarNavList mainPath={mainPath} />

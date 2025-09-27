@@ -22,6 +22,8 @@ export interface TodoTabsProps {
     inProgress: number;
     completed: number;
   };
+  activeTab?: Status;
+  onTabChange?: (tab: Status) => void;
 }
 
 export interface TodoCardProps {

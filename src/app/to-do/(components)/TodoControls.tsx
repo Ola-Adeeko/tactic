@@ -17,7 +17,10 @@ const TodoControls = ({
       bg="tealSwitchSection"
       justifyContent="space-between"
       rounded="6px"
-      padding="10px"
+      padding={{ base: "8px", lg: "10px" }}
+      flexDirection={{ base: "column", lg: "row" }}
+      gap={{ base: 3, lg: 0 }}
+      alignItems={{ base: "stretch", lg: "center" }}
     >
       <TodoSearchBar placeholder={searchPlaceholder} onSearch={onSearch} />
       <ViewToggle viewMode={viewMode} onViewChange={onViewChange} />
